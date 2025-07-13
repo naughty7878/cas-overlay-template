@@ -6,6 +6,8 @@ FROM $BASE_IMAGE AS overlay
 ARG EXT_BUILD_COMMANDS=""
 ARG EXT_BUILD_OPTIONS=""
 
+USER root
+
 WORKDIR /cas-overlay
 COPY ./src src/
 COPY ./gradle/ gradle/
