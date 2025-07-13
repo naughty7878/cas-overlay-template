@@ -1,4 +1,5 @@
-ARG BASE_IMAGE="azul/zulu-openjdk:21"
+# ARG BASE_IMAGE="azul/zulu-openjdk:21"
+ARG BASE_IMAGE="eclipse-temurin:21-jre"
 
 FROM $BASE_IMAGE AS overlay
 
