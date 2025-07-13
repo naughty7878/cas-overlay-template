@@ -27,7 +27,7 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 #
 # RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
-RUN java -Djarmode=tools -jar build/libs/cas.war extract \
+RUN java -Djarmode=tools -jar ./build/libs/cas.war extract \
     && java -XX:ArchiveClassesAtExit=./cas/cas.jsa -Dspring.context.exit=onRefresh -jar cas/cas.war
 
 FROM $BASE_IMAGE AS cas
