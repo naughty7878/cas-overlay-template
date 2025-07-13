@@ -27,6 +27,8 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 #
 # RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
+COPY ./build/libs/cas.war build/libs/cas.war
+
 # 生成cas.jsa（关键步骤）
 RUN java -Djarmode=tools -jar build/libs/cas.war extract \
     && java -XX:ArchiveClassesAtExit=./cas/cas.jsa -Dspring.context.exit=onRefresh -jar cas/cas.war
