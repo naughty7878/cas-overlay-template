@@ -6,10 +6,6 @@ FROM $BASE_IMAGE AS overlay
 ARG EXT_BUILD_COMMANDS=""
 ARG EXT_BUILD_OPTIONS=""
 
-# 设置环境变量
-ENV GRADLE_HOME="/data/soft/gradle-8.14.2"
-ENV PATH="${GRADLE_HOME}/bin:${PATH}"
-
 WORKDIR /cas-overlay
 COPY ./src src/
 COPY ./gradle/ gradle/
@@ -23,13 +19,13 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 #
 # RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
-# 使用本地的gradle
-RUN mkdir -p ~/.gradle \
-    && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
-    && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
-    && gradle --version;
-
-RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
+# # 使用本地的gradle
+# RUN mkdir -p ~/.gradle \
+#     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
+#     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
+#     && gradle --version;
+#
+# RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
 RUN java -Djarmode=tools -jar build/libs/cas.war extract \
     && java -XX:ArchiveClassesAtExit=./cas/cas.jsa -Dspring.context.exit=onRefresh -jar cas/cas.war
