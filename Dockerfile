@@ -6,6 +6,9 @@ FROM $BASE_IMAGE AS overlay
 ARG EXT_BUILD_COMMANDS=""
 ARG EXT_BUILD_OPTIONS=""
 
+# 设置环境变量
+ENV PATH="${GRADLE_HOME}/bin:${PATH}"
+
 WORKDIR /cas-overlay
 COPY ./src src/
 COPY ./gradle/ gradle/
