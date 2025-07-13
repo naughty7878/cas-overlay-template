@@ -36,8 +36,8 @@ LABEL "Organization"="Apereo"
 LABEL "Description"="Apereo CAS"
 
 RUN mkdir -p /etc/cas/config \
-    && mkdir -p /etc/cas/services \
-    && mkdir -p /etc/cas/saml;
+    && mkdir -p /etc/cas/services
+#    && mkdir -p /etc/cas/saml;
 
 WORKDIR cas-overlay
 COPY --from=overlay /cas-overlay/cas cas/
