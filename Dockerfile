@@ -7,6 +7,7 @@ ARG EXT_BUILD_COMMANDS=""
 ARG EXT_BUILD_OPTIONS=""
 
 # 设置环境变量
+ENV GRADLE_HOME="/data/soft/gradle-8.14.2"
 ENV PATH="${GRADLE_HOME}/bin:${PATH}"
 
 WORKDIR /cas-overlay
