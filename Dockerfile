@@ -23,7 +23,7 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
-    && chmod 750 ./gradlew \
+    && chmod 750 ./gradle \
     && ./gradle --version;
 
 RUN ./gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
