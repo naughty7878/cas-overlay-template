@@ -1,3 +1,11 @@
 # Application properties that need to be
 # embedded within the web application can be included here
 
+server:
+  port: 8080
+  ssl:
+    enabled: false
+  tomcat:
+    remoteip:
+      protocol-header: x-forwarded-proto
+      protocol-header-https-value: off  # 禁用 HTTPS 强制跳转
