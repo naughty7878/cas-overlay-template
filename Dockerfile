@@ -19,15 +19,8 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 #
 # RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
-# # 使用本地的gradle
-# RUN mkdir -p ~/.gradle \
-#     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
-#     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
-#     && gradle --version;
-#
-# RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
-COPY ./build/libs/cas.war build/libs/cas.war
+COPY ./build/libs/cas.war build/libs/
 
 # 生成cas.jsa（关键步骤）
 RUN java -Djarmode=tools -jar build/libs/cas.war extract \
