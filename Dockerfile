@@ -27,7 +27,7 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 #
 # RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
-RUN java -Djarmode=tools -jar ./build/libs/cas.war extract \
+RUN java -Djarmode=tools -jar build/libs/cas.war extract \
     && java -XX:ArchiveClassesAtExit=./cas/cas.jsa -Dspring.context.exit=onRefresh -jar cas/cas.war
 
 FROM $BASE_IMAGE AS cas
@@ -36,16 +36,16 @@ LABEL "Organization"="Apereo"
 LABEL "Description"="Apereo CAS"
 
 RUN mkdir -p /etc/cas/config \
-    && mkdir -p /etc/cas/services
-#    && mkdir -p /etc/cas/saml;
+    && mkdir -p /etc/cas/services \
+   && mkdir -p /etc/cas/saml;
 
 WORKDIR cas-overlay
 COPY --from=overlay /cas-overlay/cas cas/
 
 COPY etc/cas/ /etc/cas/
 COPY etc/cas/config/ /etc/cas/config/
-COPY etc/cas/services/ /etc/cas/services/
-COPY etc/cas/saml/ /etc/cas/saml/
+# COPY etc/cas/services/ /etc/cas/services/
+# COPY etc/cas/saml/ /etc/cas/saml/
 
 EXPOSE 8080 8443
 
