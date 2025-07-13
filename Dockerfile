@@ -23,10 +23,9 @@ COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./lombok.con
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
-    && chmod 750 ./gradle \
-    && ./gradle --version;
+    && gradle --version;
 
-RUN ./gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
+RUN gradle clean build $EXT_BUILD_COMMANDS --parallel --no-daemon -Pexecutable=false $EXT_BUILD_OPTIONS;
 
 RUN java -Djarmode=tools -jar build/libs/cas.war extract \
     && java -XX:ArchiveClassesAtExit=./cas/cas.jsa -Dspring.context.exit=onRefresh -jar cas/cas.war
