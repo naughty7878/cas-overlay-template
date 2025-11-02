@@ -9,3 +9,52 @@ server:
     remoteip:
       protocol-header: x-forwarded-proto
       protocol-header-https-value: off  # 禁用 HTTPS 强制跳转
+
+
+
+## 公共配置
+jdbc:
+  defaults:
+    dialect: org.hibernate.dialect.MySQLDialect
+    driverClass: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://:3306/cas?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+    user: root
+    password: "1234567"
+
+# 认证配置
+cas:
+  authn:
+    jdbc:
+      query:
+        - dialect: ${jdbc.defaults.dialect}
+          driverClass: ${jdbc.driverClass}
+          url: ${jdbc.defaults.url}
+          user: ${jdbc.defaults.user}
+          password: ${jdbc.defaults.password}
+          sql: "select * from user where username=?"
+          fieldPassword: password
+          fieldExpired: expired_flag
+          fieldDisabled: disabled_flag
+    #        passwordEncoder:
+    #          type: None
+    #          characterEncoding: UTF-8
+    #            encodingAlgorithm: BCRYPT
+
+    attributeRepository:
+      jdbc:
+        - dialect: ${jdbc.defaults.dialect}
+          driverClass: ${jdbc.driverClass}
+          url: ${jdbc.defaults.url}
+          user: ${jdbc.defaults.user}
+          password: ${jdbc.defaults.password}
+          sql: "select * from user where {0}"
+          username: username
+          singleRow: true
+          order: 0
+          requireAllAttributes: true
+          attributes:
+            id: id
+            username: username
+            first_name: first_name
+            last_name: last_name
+            email: email
