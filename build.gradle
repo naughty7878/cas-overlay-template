@@ -300,7 +300,8 @@ dependencies {
      **/
     implementation "org.apereo.cas:cas-server-support-rest"
 
-
+    // 增加jdbc依赖
+    implementation "org.apereo.cas:cas-server-support-jdbc"
     
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }

@@ -17,13 +17,16 @@ jdbc:
   defaults:
     dialect: org.hibernate.dialect.MySQLDialect
     driverClass: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://:3306/cas?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.1.170:3306/cas?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
     user: root
-    password: "1234567"
+    password: "123456"
 
 # 认证配置
 cas:
   authn:
+    # 禁用默认的静态认证
+    accept:
+      enabled: false
     jdbc:
       query:
         - dialect: ${jdbc.defaults.dialect}
